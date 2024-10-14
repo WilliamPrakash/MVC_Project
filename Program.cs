@@ -1,8 +1,14 @@
+/*
+This is where our entire application gets configured. 
+*/
+
+using MVC_Project.DAL;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-
+builder.Services.AddDbContext<MVC_ProjectDBContext>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -20,8 +26,11 @@ app.UseRouting();
 
 app.UseAuthorization();
 
+/* Currently only using one controller
+    I think we need to add another route if another controller is being used?
+*/
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=Home}/{action=Index}/{id?}"); // routing convention
 
 app.Run();
