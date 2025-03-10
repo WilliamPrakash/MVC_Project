@@ -75,6 +75,31 @@ namespace MVC_Project.Controllers
             Console.WriteLine("");
         }
 
+        public void TestEntity()
+        {
+            
+            // This is like an abstraction of our database
+            using (var context = new MVC_ProjectDBContext())
+            {
+                var expense = new Expense()
+                {
+                    //Id = 1,
+                    Value = 200,
+                    Description = "test"
+                };
+
+                context.Expenses.Add(expense);
+                context.SaveChanges();
+                // You can modify this context
+                // Then you can save those changes onto the DB
+
+                var allExpenses = context.Expenses.ToList();
+                Console.WriteLine();
+            }
+
+            Console.WriteLine();
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

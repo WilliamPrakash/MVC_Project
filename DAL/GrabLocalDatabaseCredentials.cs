@@ -8,7 +8,7 @@ namespace MVC_Project.DAL
         public string mongoPwd = "";
         public string sqlConnStr = "";
 
-        public Dictionary<string, string>? OpenLocalAuthFile()
+        public Dictionary<string, string> OpenLocalAuthFile()
         {
             Console.WriteLine("Attempting to grab DB credentials from local credentials.json...");
             string path = "";

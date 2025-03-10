@@ -1,4 +1,4 @@
- using MVC_Project.DAL;
+using MVC_Project.DAL;
 
 /* Source: https://www.youtube.com/watch?v=xuFdrXqpPB0&list=PLFOdxzWJAzC2qBKRk-7xSV9ujEruPWBZL&index=1&t=47s */
 
