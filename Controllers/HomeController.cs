@@ -17,7 +17,6 @@ namespace MVC_Project.Controllers
             _dbContext = dbContext;
         }
 
-        // Each of these corresponds to a single view (Controller can use multiple views)
         public IActionResult Index()
         {
             return View();
@@ -42,7 +41,6 @@ namespace MVC_Project.Controllers
         public void Sql_Conn()
         {
             SqlConnection conn = new SqlConnection();
-            //can you swap "Desktop-VV7FH87" for "localhost" ? yes
             conn.ConnectionString = "Server=Desktop-VV7FH87;Database=master;Trusted_Connection=True;MultipleActiveResultSets=true;TrustServerCertificate=True";
             string query = "select * from dbo.Contacts";
             conn.Open();
@@ -55,11 +53,6 @@ namespace MVC_Project.Controllers
             }
             
             Console.WriteLine("");
-        }
-
-        public IActionResult Privacy()
-        {
-            return View();
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

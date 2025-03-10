@@ -1,4 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations; // [Required] attribute
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace MVC_Project.Models
 {
@@ -7,6 +7,6 @@ namespace MVC_Project.Models
         public int Id { get; set; }
         public decimal Value { get; set; }
         [Required]
-        public string? Description{ get; set; } // don't understand why it's nullable but also required?
+        public string? Description{ get; set; }
     }
 }

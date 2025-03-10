@@ -1,8 +1,7 @@
-/*
-This is where our entire application gets configured. 
-*/
+ using MVC_Project.DAL;
 
-using MVC_Project.DAL;
+/* Source: https://www.youtube.com/watch?v=xuFdrXqpPB0&list=PLFOdxzWJAzC2qBKRk-7xSV9ujEruPWBZL&index=1&t=47s */
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -26,9 +25,6 @@ app.UseRouting();
 
 app.UseAuthorization();
 
-/* Currently only using one controller
-    I think we need to add another route if another controller is being used?
-*/
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}"); // routing convention
