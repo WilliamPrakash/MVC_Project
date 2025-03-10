@@ -3,6 +3,7 @@ using MVC_Project.DAL;
 using MVC_Project.Models;
 using System.Diagnostics;
 using Microsoft.Data.SqlClient;
+using System.Runtime.InteropServices;
 
 namespace MVC_Project.Controllers
 {
@@ -38,19 +39,38 @@ namespace MVC_Project.Controllers
             return RedirectToAction("Expenses");
         }
 
-        public void Sql_Conn()
+        public void EstablishSQLConnection()
         {
-            SqlConnection conn = new SqlConnection();
-            conn.ConnectionString = "Server=Desktop-VV7FH87;Database=master;Trusted_Connection=True;MultipleActiveResultSets=true;TrustServerCertificate=True";
-            string query = "select * from dbo.Contacts";
-            conn.Open();
-            var command = new SqlCommand(query, conn);
-            var reader = command.ExecuteReader();
+            // Grab Credentials from credentials.json stored on local machine
+            GrabLocalDatabaseCredentials credentialGrabber = new GrabLocalDatabaseCredentials();
+            Dictionary<string,string> credentials = credentialGrabber.OpenLocalAuthFile();
 
-            while(reader.Read())
+            // Create SQL connection
+            SqlConnection conn = new SqlConnection();
+            conn.ConnectionString = credentials["SQLServer_Win"];
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
             {
-                Console.WriteLine("{0} {1} {2} {3}", reader.GetInt32(0), reader.GetString(1), reader.GetString(2), reader.GetString(3));
+                conn.ConnectionString = credentials["SQLServer_Mac"];
             }
+
+            // Attempt to connect/query
+            try
+            {
+                conn.Open();
+                string query = "select * from master.dbo.Employees";
+                var command = new SqlCommand(query, conn);
+                var reader = command.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    Console.WriteLine("{0} {1} {2} {3}", reader.GetInt32(0), reader.GetString(1), reader.GetString(2), reader.GetString(3));
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
+            //conn.Close();
             
             Console.WriteLine("");
         }
