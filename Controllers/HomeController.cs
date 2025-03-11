@@ -18,6 +18,7 @@ namespace MVC_Project.Controllers
             _dbContext = dbContext;
         }
 
+        # region View return functions
         public IActionResult Index()
         {
             return View();
@@ -25,20 +26,37 @@ namespace MVC_Project.Controllers
 
         public IActionResult Expenses()
         {
-            return View(); // returns the view with the same name as the method
+            using (var context = new MVC_ProjectDBContext())
+            {
+                return View(context.Expenses.ToList()); // returns the view with the same name as the method
+            }
         }
 
         public IActionResult CreateEditExpense()
         {
             return View();
         }
+        # endregion
 
-        // A model of type expense (or object) gets submitted here
+        // Should I make a separate function for editing?
         public IActionResult CreateEditExpenseForm(Expense model)
         {
+            using (var context = new MVC_ProjectDBContext())
+            {
+                var expense = new Expense()
+                {
+                    Value = model.Value,
+                    Description = model.Description
+                };
+
+                context.Expenses.Add(expense);
+                context.SaveChanges();
+                Console.WriteLine(context.Expenses.ToList());
+            }
             return RedirectToAction("Expenses");
         }
 
+        /* Should I remove this now that I'm using EF Core to access SQL? */
         public void EstablishSQLConnection()
         {
             // Grab Credentials from credentials.json stored on local machine
@@ -73,31 +91,6 @@ namespace MVC_Project.Controllers
             //conn.Close();
             
             Console.WriteLine("");
-        }
-
-        public void TestEntity()
-        {
-            
-            // This is like an abstraction of our database
-            using (var context = new MVC_ProjectDBContext())
-            {
-                var expense = new Expense()
-                {
-                    //Id = 1,
-                    Value = 200,
-                    Description = "test"
-                };
-
-                context.Expenses.Add(expense);
-                context.SaveChanges();
-                // You can modify this context
-                // Then you can save those changes onto the DB
-
-                var allExpenses = context.Expenses.ToList();
-                Console.WriteLine();
-            }
-
-            Console.WriteLine();
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
