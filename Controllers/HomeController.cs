@@ -27,6 +27,8 @@ namespace MVC_Project.Controllers
         {
             using (var context = new MVC_ProjectDBContext())
             {
+                var totalExpenses = context.Expenses.Sum(Expense => Expense.Value);
+                ViewBag.TotalExpenses = totalExpenses;
                 return View(context.Expenses.ToList()); // returns the view with the same name as the method
             }
         }
