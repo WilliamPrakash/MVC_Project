@@ -1,8 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
-using MVC_Project.Models;
-using MVC_Project.DAL;
-using System.IO;
+﻿using MVC_Project.Models;
+using Microsoft.EntityFrameworkCore;
 using System.Runtime.InteropServices;
+
 
 namespace MVC_Project.DAL
 {
@@ -12,6 +11,7 @@ namespace MVC_Project.DAL
 
         // Tables
         public DbSet<Expense> Expenses { get; set; }
+        public DbSet<Employee> Employees { get; set; }
 
         // Database provider
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
