@@ -1,0 +1,24 @@
+﻿@{
+    ViewData["Title"] = "Edit Employee";
+}
+
+@model Employee
+
+<div class="text-center">
+    <h1 class="display-4">Edit an expense</h1>
+</div>
+
+<form asp-action="EditEmployeeRecord" asp-controller="Employee">
+    <input hidden class="form-control" type="number" asp-for="Id"/>
+
+    <label class-"mt-4">Name: </label>
+    <input class="form-control" type="text" placeholder="name" asp-for="Name"/>
+
+    <label class-"mt-4">Email: </label>
+    <input class="form-control" type="text" placeholder="email" asp-for="Email" />
+
+    <label class-"mt-4">Occupation: </label>
+    <input class="form-control" type="text" placeholder="occupation" asp-for="Occupation" />
+
+    <button class="btn btn-primary mt-4" type="submit">Submit employee edits</button>
+</form>
